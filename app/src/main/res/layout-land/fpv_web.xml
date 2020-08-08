@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:kongqw="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <WebView
+        android:id="@+id/fullweb0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <com.kongqw.rockerlibrary.view.RockerView
+            android:id="@+id/rockerViewl"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            kongqw:areaBackground="@drawable/rockerunfocused"
+            kongqw:rockerBackground="@drawable/rocker"
+            kongqw:rockerRadius="30dp"
+            android:layout_gravity="bottom|left"
+            android:layout_margin="10dp"
+            tools:ignore="MissingConstraints" />
+
+        <com.kongqw.rockerlibrary.view.RockerView
+            android:id="@+id/rockerViewr"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            kongqw:areaBackground="@drawable/rockerunfocused"
+            kongqw:rockerBackground="@drawable/rocker"
+            kongqw:rockerRadius="30dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="10dp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/PingView"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center|top"
+            android:textSize="15sp"
+            android:textColor="#000"/>
+
+        <TextView
+            android:id="@+id/MsgView"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center|bottom"
+            android:textSize="12sp"
+            android:textColor="#000"
+            android:gravity="bottom"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <Button
+                    android:id="@+id/control_btn_1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="1"
+                    android:background="@drawable/function_button_ripple"
+                    />
+
+                <Button
+                    android:id="@+id/control_btn_2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="2"
+                    android:background="@drawable/function_button_ripple"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <Button
+                    android:id="@+id/control_btn_3"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="3"
+                    android:background="@drawable/function_button_ripple"
+                    />
+                <Button
+                    android:id="@+id/control_btn_4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="4"
+                    android:background="@drawable/function_button_ripple"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_gravity="right"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/refreshbutton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/ic_baseline_rotate_right_24"
+                    />
+
+                <Button
+                    android:id="@+id/control_btn_5"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="5"
+                    android:background="@drawable/function_button_ripple"
+                    />
+
+                <Button
+                    android:id="@+id/control_btn_6"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="6"
+                    android:background="@drawable/function_button_ripple"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/control_btn_7"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="7"
+                    android:background="@drawable/function_button_ripple"
+                    />
+                <Button
+                    android:id="@+id/control_btn_8"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="8"
+                    android:background="@drawable/function_button_ripple"
+                    />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

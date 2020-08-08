@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fpvMode">
+        <item>http图传</item>
+        <item>UDP图传(暂不支持)</item>
+        <item>固定图片背景(不图传)</item>
+    </string-array>
+
+    <string-array name="ControlMode">
+        <item>TCP</item>
+        <item>蓝牙串口</item>
+    </string-array>
+</resources>
