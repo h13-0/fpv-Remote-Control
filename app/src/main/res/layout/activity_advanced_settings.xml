@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:kongqw="http://schemas.android.com/apk/res-auto"
+    tools:context=".AdvancedSettings"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AdvancedSettingsToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:title="Advanced Settings"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginBottom="3dp"
+        >
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="左控件:"
+                    android:textColor="#000"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/Switchl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="摇杆"
+                    android:textColor="#000"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="右控件:"
+                    android:textColor="#000"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/Switchr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/moder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="滑杆"
+                    android:textColor="#000"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:background="@drawable/advanced_setting_shape1"
+        android:layout_marginHorizontal="15dp"
+        >
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <com.kongqw.rockerlibrary.view.RockerView
+                android:id="@+id/rockerViewdemol"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                kongqw:areaBackground="@drawable/rockerunfocused"
+                kongqw:rockerBackground="@drawable/rocker"
+                kongqw:rockerRadius="30dp"
+                android:layout_margin="10dp"
+                tools:ignore="MissingConstraints"
+                />
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekbardemol"
+                android:rotation="270"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+
+            >
+
+            <com.kongqw.rockerlibrary.view.RockerView
+                android:id="@+id/rockerViewdemor"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                kongqw:areaBackground="@drawable/rockerunfocused"
+                kongqw:rockerBackground="@drawable/rocker"
+                kongqw:rockerRadius="30dp"
+                android:layout_margin="10dp"
+                tools:ignore="MissingConstraints"
+                android:visibility="invisible"
+                />
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/seekbardemor"
+                android:rotation="270"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AdvancedSettingsRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

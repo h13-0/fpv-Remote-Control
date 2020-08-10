@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">fpv</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="webviewipaddress">192.168.1.1</string>
+    <string name="FPVModeHit">请选择图传方式</string>
+    <string name="ControlModeHit">请选择控制方式</string>
+    <string name="title_activity_main">activity_main</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">FPV图传</string>
+    <string name="nav_header_subtitle">com.h13studio.fpv</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+</resources>
