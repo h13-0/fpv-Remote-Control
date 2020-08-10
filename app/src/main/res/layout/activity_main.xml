@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFF"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/ToolBarMain0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:title="FPV Settings"
+            />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/fpvModeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:spinnerMode="dialog"
+            android:entries="@array/fpvMode"
+            android:scrollbarSize="25dp"
+            android:padding="10dp"
+            android:prompt="@string/FPVModeHit"
+            />
+
+        <android.inputmethodservice.ExtractEditText
+            android:id="@+id/fpvaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:hint="eg:http://192.168.192.101:80"
+            android:inputType="textUri"
+            android:maxLines="1"
+            />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/ControlModeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:spinnerMode="dialog"
+            android:entries="@array/ControlMode"
+            android:scrollbarSize="25dp"
+            android:prompt="@string/ControlModeHit"
+            android:padding="10dp"
+            />
+
+        <android.inputmethodservice.ExtractEditText
+            android:id="@+id/controladdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:hint="eg:192.168.192.101:8080"
+            android:maxLines="1"
+            />
+
+        <Button
+            android:id="@+id/startfpv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start!"
+            android:textSize="30sp"
+            android:layout_margin="10dp"
+            android:textAllCaps="false"
+            android:background="@drawable/start_button_ripple"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/MainEventLog"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="15dp"
+            android:scrollbars = "vertical"
+            />
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer"
+        app:navigationIcon="@drawable/ic_baseline_dehaze_24"
+        />
+
+</androidx.drawerlayout.widget.DrawerLayout>
