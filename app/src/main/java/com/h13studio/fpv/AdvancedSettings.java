@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,6 @@ public class AdvancedSettings extends AppCompatActivity {
     private AppCompatSeekBar seekbarl,seekbarr;
 
     private Settings settings;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

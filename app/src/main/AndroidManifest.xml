@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AdvancedSettings"></activity>
+        <activity android:name=".AdvancedSettings" />
         <activity android:name=".BluetoothActivity" />
         <activity
             android:name=".fpvActivity"

@@ -1,8 +1,11 @@
 package com.h13studio.fpv;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,7 +54,7 @@ public class fpvActivity extends AppCompatActivity {
     private int port;
     private String ControlMode;
     private String mac;
-    private RockerView rockerViewl,rockerViewr;
+    private com.gcssloop.widget.RockerView rockerViewl,rockerViewr;
     private SeekBar seekbarl,seekbarr;
     private MsgObject msgobject;
     private Button ControlBtn1,ControlBtn2,ControlBtn3,ControlBtn4,ControlBtn5,ControlBtn6,ControlBtn7,ControlBtn8;
@@ -60,7 +63,6 @@ public class fpvActivity extends AppCompatActivity {
     private TextView valuel,valuer;
 
     private Settings settings;
-
 
     //默认允许触摸和缩放WebView
     private boolean EnableWebviewTouchEvent = true;
@@ -178,6 +180,8 @@ public class fpvActivity extends AppCompatActivity {
             }
         });
 
+
+
         //加载http页面
         mWebView0.loadUrl(Address);
 
@@ -272,23 +276,35 @@ public class fpvActivity extends AppCompatActivity {
             //则左边为摇杆
             rockerViewl.setVisibility(View.VISIBLE);
             seekbarl.setVisibility(View.INVISIBLE);
+            valuel.setVisibility(View.VISIBLE);
 
             //注册摇杆监听事件
-            rockerViewl.setOnAngleChangeListener(new RockerView.OnAngleChangeListener() {
+            rockerViewl.setListener(new com.gcssloop.widget.RockerView.RockerListener() {
                 @Override
-                public void onStart() {
-                    valuel.setVisibility(View.VISIBLE);
-                }
+                public void callback(int i, int i1, float v) {
+                    if(i == com.gcssloop.widget.RockerView.EVENT_ACTION) {
+                        //i1最大为190
+                        if(i1 == -1){
+                            valuel.setText("-1 0");
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, 0));
+                            return;
+                        }
 
-                @Override
-                public void angle(double angle) {
-                    valuel.setText("0" + " " + String.valueOf((int)(angle)));
-                    msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) angle));
-                }
+                        int angel = 0;
+                        if(i1 >= 90){
+                            angel = i1 - 90;
+                        } else {
+                            angel = 270 + i1;
+                        }
 
-                @Override
-                public void onFinish() {
-                    valuel.setVisibility(View.INVISIBLE);
+                        if(v <= 190) {
+                            valuel.setText(String.valueOf(angel) + " " + String.valueOf((int)(v)));
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) (angel + 65536*v)));
+                        } else {
+                            valuel.setText(String.valueOf(angel) + " " + "190");
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) (angel + 65536*190)));
+                        }
+                    }
                 }
             });
         }
@@ -322,22 +338,33 @@ public class fpvActivity extends AppCompatActivity {
             //则右边为摇杆
             rockerViewr.setVisibility(View.VISIBLE);
             seekbarr.setVisibility(View.INVISIBLE);
+            valuer.setVisibility(View.VISIBLE);
 
-            rockerViewr.setOnAngleChangeListener(new RockerView.OnAngleChangeListener() {
+            rockerViewr.setListener(new com.gcssloop.widget.RockerView.RockerListener() {
                 @Override
-                public void onStart() {
-                    valuer.setVisibility(View.VISIBLE);
-                }
+                public void callback(int i, int i1, float v) {
+                    if(i == com.gcssloop.widget.RockerView.EVENT_ACTION) {
+                        if(i1 == -1){
+                            valuer.setText("-1 0");
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, 0));
+                            return;
+                        }
 
-                @Override
-                public void angle(double angle) {
-                    valuer.setText("0" + " " + String.valueOf((int)(angle)));
-                    msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) angle));
-                }
+                        int angel = 0;
+                        if(i1 >= 90){
+                            angel = i1 - 90;
+                        } else {
+                            angel = 270 + i1;
+                        }
 
-                @Override
-                public void onFinish() {
-                    valuer.setVisibility(View.INVISIBLE);
+                        if(v <= 190) {
+                            valuer.setText(String.valueOf(angel) + " " + String.valueOf((int)(v)));
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536*v)));
+                        } else {
+                            valuer.setText(String.valueOf(angel) + " " + "190");
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536*190)));
+                        }
+                    }
                 }
             });
         }
@@ -425,9 +452,17 @@ public class fpvActivity extends AppCompatActivity {
                 byte[] data = {0x66, 0x00, 0x00, 0x00, 0x00, 0x70, 0x76};
                 data[1] = (byte) ID;
                 //MD,位运算好像有bug
-                data[2] = (byte) ((value/65535)%265);
+                data[2] = (byte) ((value/65535)%256);
                 data[3] = (byte) ((value/256)%256);
                 data[4] = (byte) (0x0000ff&value);
+
+                Log.d("Byte0", String.format("%x",data[0]));
+                Log.d("Byte1", String.format("%x",data[1]));
+                Log.d("Byte2", String.format("%x",data[2]));
+                Log.d("Byte3", String.format("%x",data[3]));
+                Log.d("Byte4", String.format("%x",data[4]));
+                Log.d("Byte5", String.format("%x",data[5]));
+                Log.d("Byte6", String.format("%x",data[6]));
 
                 return data;
             }

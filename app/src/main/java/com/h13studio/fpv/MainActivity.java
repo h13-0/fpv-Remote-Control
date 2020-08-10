@@ -1,5 +1,6 @@
 package com.h13studio.fpv;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -8,7 +9,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
@@ -44,6 +48,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -130,9 +135,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         fpvAddress.setFocusableInTouchMode(false);
 
                         //让用户选择图片
+                        choosePhoto();
 
-
-                        Toast.makeText(getApplicationContext(), "咕咕咕 下次在做.", Toast.LENGTH_SHORT).show();
+                        //验证储存权限
+                        verifyStoragePermissions(MainActivity.this);
 
                         EventLog.append("fpv Service is disabled...\r\n");
                         break;
@@ -465,19 +471,66 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //0->bluetooth
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==0 && resultCode==RESULT_OK){
-            Bundle bundle = data.getExtras();
-            String text =null;
-            if(bundle!=null)
-                text=bundle.getString("Mac");
-            Log.d("result",text);
-            controladdress.setText(text);
-//            controladdress.setFocusable(false);
-//            controladdress.setFocusableInTouchMode(false);
-            //mBtn_Linear.setClickable(false);
+        switch (requestCode) {
+            //蓝牙配对界面返回
+            case 0: {
+                if(resultCode==RESULT_OK){
+                    Bundle bundle = data.getExtras();
+                    String text =null;
+                    if(bundle!=null)
+                        text=bundle.getString("Mac");
+                    Log.d("result",text);
+                    controladdress.setText(text);
+//                  controladdress.setFocusable(false);
+//                  controladdress.setFocusableInTouchMode(false);
+                    //mBtn_Linear.setClickable(false);
 
-            EventLog.append("Select Bluetooth target at" + text);
-            BluetoothTargetSelected = true;
+                    EventLog.append("Select Bluetooth target at" + text);
+                    BluetoothTargetSelected = true;
+                }
+
+                break;
+            }
+
+            case 1: {
+                Uri uri = data.getData();
+                String filePath = FileUtil.getFilePathByUri(this, uri);
+                if (!TextUtils.isEmpty(filePath)) {
+                    fpvAddress.setText("file://" + filePath);
+                }
+                break;
+            }
+        }
+
+    }
+
+    //从相册选取图片
+    private void choosePhoto() {
+        Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
+        intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intentToPickPic, 1);
+    }
+
+    //动态申请读写储存权限
+    //先定义
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
+    private static String[] PERMISSIONS_STORAGE = {
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE" };
+
+    //然后通过一个函数来申请
+    public static void verifyStoragePermissions(Activity activity) {
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(activity,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
