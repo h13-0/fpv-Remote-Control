@@ -49,6 +49,8 @@ import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -259,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                     Intent intent = new Intent(MainActivity.this, fpv.getClass());
 
-                                    intent.putExtra("fpvMode", "http");
+                                    intent.putExtra("fpvMode", getfpvmode());
                                     intent.putExtra("Address", fpvAddress.getText().toString());
 
                                     intent.putExtra("ControlMode", "TCP");
@@ -281,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 Intent intent = new Intent(MainActivity.this, fpv.getClass());
 
-                                intent.putExtra("fpvMode", "http");
+                                intent.putExtra("fpvMode", getfpvmode());
                                 intent.putExtra("Address", fpvAddress.getText().toString());
 
                                 intent.putExtra("ControlMode", "Bluetooth");
@@ -291,15 +293,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         break;
                     }
-                    default:
+                    default: {
                         Toast.makeText(getApplicationContext(), "暂不支持。", Toast.LENGTH_SHORT).show();
                         break;
+                    }
                 }
             }
         });
 
         navigationview.setNavigationItemSelectedListener(this);
 
+    }
+
+    private String getfpvmode(){
+        switch (fpvMode){
+            case 0:{
+                return "http";
+            }
+
+            case 1:{
+                //暂且先不做UDP
+                //return "UDP";
+                return "http";
+            }
+
+            case 2:{
+                return "Photo";
+            }
+
+            default:{
+                return "Unknow";
+            }
+        }
     }
 
     @Override
@@ -493,12 +518,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case 1: {
-                Uri uri = data.getData();
-                String filePath = FileUtil.getFilePathByUri(this, uri);
-                if (!TextUtils.isEmpty(filePath)) {
-                    fpvAddress.setText("file://" + filePath);
+                if(data != null) {
+                    if(data.getData() != null) {
+                        Uri uri = data.getData();
+                        String filePath = FileUtil.getFilePathByUri(this, uri);
+                        if (!TextUtils.isEmpty(filePath)) {
+                            fpvAddress.setText("file://" + filePath);
+                        }
+                        break;
+                    }
                 }
-                break;
             }
         }
 

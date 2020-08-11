@@ -3,6 +3,7 @@ package com.h13studio.fpv;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
@@ -80,6 +82,7 @@ public class fpvActivity extends AppCompatActivity {
      * while interacting with activity UI.
      */
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +118,22 @@ public class fpvActivity extends AppCompatActivity {
 
         //加载LockWebView按钮
         LockButton = findViewById(R.id.lockbutton);
+
+        switch (fpvMode){
+            case "http":{
+                break;
+            }
+
+            case "Photo":{
+                //验证储存权限
+                verifyStoragePermissions(this);
+                break;
+            }
+
+            default:{
+                break;
+            }
+        }
 
         switch(ControlMode) {
             case "TCP": {
@@ -155,6 +174,7 @@ public class fpvActivity extends AppCompatActivity {
                 LockButton.setVisibility(View.INVISIBLE);
                 break;
             }
+
             default:{
                 Toast.makeText(getApplicationContext(), "什么鬼", Toast.LENGTH_SHORT).show();
 
@@ -179,8 +199,6 @@ public class fpvActivity extends AppCompatActivity {
                 return !EnableWebviewTouchEvent;
             }
         });
-
-
 
         //加载http页面
         mWebView0.loadUrl(Address);
@@ -257,7 +275,7 @@ public class fpvActivity extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                     if(b) {
-                        valuel.setText("Value: " + String.valueOf(i));
+                        valuel.setText("value: " + String.valueOf(i));
                         msgobject.SendMsg(ToBinaryData(ControlerTypy.Seekbar, 0, i));
                     }
                 }
@@ -274,35 +292,35 @@ public class fpvActivity extends AppCompatActivity {
             });
         }else {
             //则左边为摇杆
+
             rockerViewl.setVisibility(View.VISIBLE);
             seekbarl.setVisibility(View.INVISIBLE);
             valuel.setVisibility(View.VISIBLE);
 
-            //注册摇杆监听事件
             rockerViewl.setListener(new com.gcssloop.widget.RockerView.RockerListener() {
                 @Override
                 public void callback(int i, int i1, float v) {
                     if(i == com.gcssloop.widget.RockerView.EVENT_ACTION) {
-                        //i1最大为190
-                        if(i1 == -1){
+                        //rockerViewr.setVisibility(View.INVISIBLE);
+                        if (i1 == -1) {
                             valuel.setText("-1 0");
                             msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, 0));
                             return;
                         }
 
                         int angel = 0;
-                        if(i1 >= 90){
+                        if (i1 >= 90) {
                             angel = i1 - 90;
                         } else {
                             angel = 270 + i1;
                         }
 
-                        if(v <= 190) {
-                            valuel.setText(String.valueOf(angel) + " " + String.valueOf((int)(v)));
-                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) (angel + 65536*v)));
+                        if (v <= 190) {
+                            valuel.setText(String.valueOf(angel) + " " + String.valueOf((int) (v)));
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) (angel + 65536 * v)));
                         } else {
                             valuel.setText(String.valueOf(angel) + " " + "190");
-                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) (angel + 65536*190)));
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 0, (int) (angel + 65536 * 190)));
                         }
                     }
                 }
@@ -311,7 +329,11 @@ public class fpvActivity extends AppCompatActivity {
 
         if(settings.getModeRight()) {
             //则右边为滑杆
-            rockerViewr.setVisibility(View.INVISIBLE);
+
+            //这还有个BUG,不能直接把rockerViewr设置为INVISABLE,否则左边的摇杆绘制不出来。
+            rockerViewr.setActivated(false);
+            rockerViewr.setRockerRadius(0);
+            rockerViewr.setAreaRadius(0);
             seekbarr.setVisibility(View.VISIBLE);
 
             //注册滑杆事件
@@ -344,30 +366,32 @@ public class fpvActivity extends AppCompatActivity {
                 @Override
                 public void callback(int i, int i1, float v) {
                     if(i == com.gcssloop.widget.RockerView.EVENT_ACTION) {
-                        if(i1 == -1){
+                        if (i1 == -1) {
                             valuer.setText("-1 0");
                             msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, 0));
                             return;
                         }
 
                         int angel = 0;
-                        if(i1 >= 90){
+                        if (i1 >= 90) {
                             angel = i1 - 90;
                         } else {
                             angel = 270 + i1;
                         }
 
-                        if(v <= 190) {
-                            valuer.setText(String.valueOf(angel) + " " + String.valueOf((int)(v)));
-                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536*v)));
+                        if (v <= 190) {
+                            valuer.setText(String.valueOf(angel) + " " + String.valueOf((int) (v)));
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536 * v)));
                         } else {
                             valuer.setText(String.valueOf(angel) + " " + "190");
-                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536*190)));
+                            msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536 * 190)));
                         }
                     }
                 }
             });
         }
+        //这句也不能删,否则也会影响左边控件绘制...
+        rockerViewr.setVisibility(View.VISIBLE);
     }
 
     //统一处理按钮的OnClick事件
@@ -528,5 +552,28 @@ public class fpvActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setDefaultTextEncodingName("utf-8");
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+    }
+
+    //动态申请读写储存权限
+    //先定义
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
+    private static String[] PERMISSIONS_STORAGE = {
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE" };
+
+    //然后通过一个函数来申请
+    public static void verifyStoragePermissions(Activity activity) {
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(activity,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

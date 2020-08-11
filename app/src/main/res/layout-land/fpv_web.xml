@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:kongqw="http://schemas.android.com/apk/res-auto"
     xmlns:rocker="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingDefaultResource">
 
@@ -17,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
         <com.gcssloop.widget.RockerView
             android:id="@+id/rockerViewl"
             android:layout_width="200dp"
@@ -28,6 +28,7 @@
             rocker:rocker_background="@drawable/rocker"
             rocker:rocker_radius="25dp"
             tools:ignore="MissingConstraints"
+            android:visibility="visible"
             />
 
         <androidx.appcompat.widget.AppCompatSeekBar
@@ -39,7 +40,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginBottom="100dp"
             android:fadingEdgeLength="100dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             />
 
         <TextView
