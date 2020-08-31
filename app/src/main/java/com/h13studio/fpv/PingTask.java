@@ -67,10 +67,9 @@ public class PingTask extends Thread {
                             buffer.append(line);
                         }
                         Log.i("Ping", buffer.toString());
-
-
                     } catch (IOException e) {
                         e.printStackTrace();
+                        Log.d("error",e.toString());
                     }
 
                     Source = (String)(buffer.toString());

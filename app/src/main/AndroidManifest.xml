@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.h13studio.fpv"
-    android:versionCode="3"
-    android:versionName="1.1.2020 08 11">
+    android:versionCode="5"
+    android:versionName="1.2.2020 08 11">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />

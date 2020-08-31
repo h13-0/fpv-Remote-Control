@@ -53,7 +53,6 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     private Toolbar toolbar;
     private Button mBtn_Linear;
     private DrawerLayout drawer;
@@ -61,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Spinner fpvModeSpinner,ControlModeSpinner;
     private int fpvMode = 0;
     private int controlMode = 0;
+
+    //用于标记应用是否刚刚打开,这样可以避免刚打开APP就有烦人的Toast
+    private boolean firstrun = true;
 
     //找到侧边抽屉的navigationmenu控件
     private NavigationView navigationview;
@@ -118,7 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         fpvAddress.setFocusable(true);
                         fpvAddress.setFocusableInTouchMode(true);
                         fpvAddress.setHint(new SpannableString("eg: http://192.168.192.101:80"));
-                        Toast.makeText(getApplicationContext(), "不输入则默认白色背景", Toast.LENGTH_SHORT).show();
+                        if(!firstrun) {
+                            Toast.makeText(getApplicationContext(), "不输入则默认白色背景", Toast.LENGTH_SHORT).show();
+                        }
                         EventLog.append("fpv Service is running on http mode...\r\n");
                         break;
                     }
@@ -128,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         fpvAddress.setFocusable(false);
                         fpvAddress.setFocusableInTouchMode(false);
                         Toast.makeText(getApplicationContext(), "虽然理论上是更好的解决方案,但是暂时不支持,所以请关注更新哦~", Toast.LENGTH_SHORT).show();
-                        EventLog.append("UDP图传在信号弱的时候效果远超http.\r\n");
                         break;
                     }
                     case 2:{
@@ -302,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         navigationview.setNavigationItemSelectedListener(this);
-
+        firstrun = false;
     }
 
     private String getfpvmode(){

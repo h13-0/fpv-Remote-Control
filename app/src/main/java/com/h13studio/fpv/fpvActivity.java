@@ -241,7 +241,7 @@ public class fpvActivity extends AppCompatActivity {
                 new PingTask(host, 3000, new PingTask.OnMainCallBack() {
                     @Override
                     public void onMainCallBack(String data) {
-                        PingView.setText(data);
+                        ping(data);
                     }
                 }).StartPingTask(3000);
                 break;
@@ -575,5 +575,9 @@ public class fpvActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void ping(String string){
+        PingView.setText(string);
     }
 }

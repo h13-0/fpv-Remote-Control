@@ -22,11 +22,7 @@ public class BluetoothClient {
     private BluetoothSocket socket = null;
     private BluetoothDevice device;
     private BluetoothAdapter bluetoothAdapter;
-    //private static BluetoothLeService mBluetoothLeService;
     private boolean checkpass = true;
-    private boolean connected = false;
-    private boolean connecting;
-    private int connetTime;
     private String mac;
     private boolean dataoccuping,MSGoccuping;
     private String MSG = new String();
@@ -43,7 +39,7 @@ public class BluetoothClient {
         mOnMainCallBack = mainCallBack;
         if(bluetoothAdapter == null)
         {
-            Log.i("Adapetr","null");
+            Log.w("Adapetr","BluetoothAdapter is null.");
         }
 
         device = bluetoothAdapter.getRemoteDevice(mac);
@@ -51,96 +47,85 @@ public class BluetoothClient {
         try {
             socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
         }catch (IOException e){
-            Log.i("Bluetooth",e.toString());
+            Log.w("Bluetooth",e.toString());
         }
 
-        while (!connected && connetTime <= 10) {
-            connectDevice();
-        }
+        ConnectDevice();
 
         //发送线程
-        if(connected){
-            new Thread(){
-                @Override
-                public void run(){
-                    while (true){
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    if (socket.isConnected()) {
                         try {
-                            if(socket != null) {
-                                SendtoSever();
-                            }else {
-                                Log.i("Bluetooth","null");
-                            }
-                        }catch (IOException e){
-
+                            SendtoClient();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.w("Bluetooth", "Bluetooth Client lose connection.");
+                        mOnMainCallBack.onMainCallBack("Bluetooth Client lose connection.\r\n");
+                        if (socket != null) {
+                            ConnectDevice();
                         }
                     }
                 }
-            }.start();
-        }
+            }
+        }.start();
+
 
         //接收线程
-        if(connected){
-            new Thread(){
-                @Override
-                public void run(){
-                    while (true){
-                        if(socket!=null) {
-                            try {
-                                BufferedReader msg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                                if ((msg != null) && (msg.readLine().length() != 0)) {
-                                    mOnMainCallBack.onMainCallBack(msg.readLine() + "\r\n");
-                                }
-                            } catch (IOException e) {
-                                try {
-                                    socket.close();
-                                    socket = null;
-                                    connectDevice();
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-
-                                try {
-                                    Thread.sleep(300);
-                                } catch (InterruptedException ex) {
-                                    ex.printStackTrace();
-                                }
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    if (socket.isConnected()) {
+                        try {
+                            BufferedReader msg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            if ((msg != null) && (msg.readLine().length() != 0)) {
+                                mOnMainCallBack.onMainCallBack(msg.readLine() + "\r\n");
                             }
-                        }else {
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    }
                 }
-            }.start();
-        }
+            }
+        }.start();
     }
 
     //发送
-    private void SendtoSever() throws IOException {
+    private void SendtoClient() throws IOException {
         while (true) {
-            if (MSG != "") {
-                MSGoccuping = true;
-                socket.getOutputStream().write(MSG.getBytes());
-                socket.getOutputStream().flush();
-                MSG = "";
-                MSGoccuping = false;
-            }
+            if (socket.isConnected()) {
+                if (MSG != "") {
+                    MSGoccuping = true;
+                    socket.getOutputStream().write(MSG.getBytes());
+                    socket.getOutputStream().flush();
+                    MSG = "";
+                    MSGoccuping = false;
+                }
 
-            if(data != null){
-                dataoccuping = true;
-                socket.getOutputStream().write(data);
-                socket.getOutputStream().flush();
-                data = null;
-                dataoccuping = false;
+                if (data != null) {
+                    dataoccuping = true;
+                    socket.getOutputStream().write(data);
+                    socket.getOutputStream().flush();
+                    data = null;
+                    dataoccuping = false;
+                }
             }
         }
     }
 
     //连接到目标蓝牙设备
-    protected void connectDevice() {
+    protected void ConnectDevice() {
         try {
             // 连接建立之前的先配对
             if (device.getBondState() == BluetoothDevice.BOND_NONE) {
@@ -151,32 +136,18 @@ public class BluetoothClient {
             } else {
             }
         } catch (Exception e) {
-            // TODO: handle exception
-            //DisplayMessage("无法配对！");
+            Log.e("Bluetooth","配对失败");
             e.printStackTrace();
         }
         bluetoothAdapter.cancelDiscovery();
         try {
-            socket.connect();
-            Log.i("Connect","OK");
-            //DisplayMessage("连接成功!");
-            //connetTime++;
-            connected = true;
-        } catch (IOException e) {
-            // TODO: handle exception
-            //DisplayMessage("连接失败！");
-            Log.i("Bluetooth Connect", "error: " + e.toString());
-            connetTime++;
-            connected = false;
-            try {
-                socket.close();
-                socket = null;
-            } catch (IOException e2) {
-                // TODO: handle exception
-                Log.i("Connect","error");
+            if(socket != null) {
+                socket.connect();
             }
-        } finally {
-            connecting = false;
+            Log.i("Connect","OK");
+            mOnMainCallBack.onMainCallBack("Bluetooth Client Connected.\r\n");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -185,8 +156,6 @@ public class BluetoothClient {
             socket.close();
         }catch (IOException e){
             Log.i("Connect",e.toString());
-        } finally {
-            connecting = false;
         }
     }
 
