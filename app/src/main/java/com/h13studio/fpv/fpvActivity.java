@@ -493,15 +493,6 @@ public class fpvActivity extends AppCompatActivity {
                 data[2] = (byte) ((value/65535)%256);
                 data[3] = (byte) ((value/256)%256);
                 data[4] = (byte) (0x0000ff&value);
-
-                Log.d("Byte0", String.format("%x",data[0]));
-                Log.d("Byte1", String.format("%x",data[1]));
-                Log.d("Byte2", String.format("%x",data[2]));
-                Log.d("Byte3", String.format("%x",data[3]));
-                Log.d("Byte4", String.format("%x",data[4]));
-                Log.d("Byte5", String.format("%x",data[5]));
-                Log.d("Byte6", String.format("%x",data[6]));
-
                 return data;
             }
 
@@ -510,7 +501,6 @@ public class fpvActivity extends AppCompatActivity {
                 byte[] data = {0x66, 0x00, 0x00, 0x70, 0x76};
                 data[1] = (byte) (ID + 0x10);
                 data[2] = (byte) value;
-
                 return data;
             }
 
@@ -519,7 +509,6 @@ public class fpvActivity extends AppCompatActivity {
                 byte[] data = {0x66, 0x00, 0x00, 0x70, 0x76};
                 data[1] = (byte) (ID + 0x20);
                 data[2] = (byte) value;
-
                 return data;
             }
 
