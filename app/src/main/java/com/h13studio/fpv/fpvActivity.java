@@ -240,8 +240,13 @@ public class fpvActivity extends AppCompatActivity {
             case "TCP":{
                 new PingTask(host, 3000, new PingTask.OnMainCallBack() {
                     @Override
-                    public void onMainCallBack(String data) {
-                        ping(data);
+                    public void onMainCallBack(final String data) {
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                ping(data);
+                            }
+                        });
                     }
                 }).StartPingTask(3000);
                 break;

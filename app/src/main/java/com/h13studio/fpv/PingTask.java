@@ -55,24 +55,23 @@ public class PingTask extends Thread {
                 super.run();
                 Looper.prepare();
                 Process p = null;
-                String Source;
-                StringBuffer buffer = new StringBuffer();
+                String Source = "";
+
                 while (true) {
                     try {
                         p = Runtime.getRuntime().exec("ping -c 1 -w " + timelimit + " " + host);
                         InputStream input = p.getInputStream();
                         BufferedReader in = new BufferedReader(new InputStreamReader(input));
                         String line = "";
-                        while ((line = in.readLine()) != null) {
-                            buffer.append(line);
+                        if(in.readLine() != null)
+                        {
+                            Source = in.readLine();
+                            Log.i("Ping", Source);
                         }
-                        Log.i("Ping", buffer.toString());
                     } catch (IOException e) {
                         e.printStackTrace();
                         Log.d("error",e.toString());
                     }
-
-                    Source = (String)(buffer.toString());
 
                     String[] temp;
                     String time;
@@ -87,9 +86,7 @@ public class PingTask extends Thread {
                         Source = "TCP ping error!";
                     }
 
-
                     mOnMainCallBack.onMainCallBack(Source);
-                    Log.i("PingView",buffer.toString());
 
                     try {
                         Thread.sleep(delay);
