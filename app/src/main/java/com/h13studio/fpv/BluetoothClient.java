@@ -59,7 +59,7 @@ public class BluetoothClient {
                 while (true) {
                     if (socket.isConnected()) {
                         try {
-                            SendtoClient();
+                            SendtoSever();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -102,7 +102,7 @@ public class BluetoothClient {
     }
 
     //发送
-    private void SendtoClient() throws IOException {
+    private void SendtoSever() throws IOException {
         while (true) {
             if (socket.isConnected()) {
                 if (MSG != "") {

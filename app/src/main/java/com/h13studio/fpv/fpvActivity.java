@@ -61,7 +61,7 @@ public class fpvActivity extends AppCompatActivity {
     private MsgObject msgobject;
     private Button ControlBtn1,ControlBtn2,ControlBtn3,ControlBtn4,ControlBtn5,ControlBtn6,ControlBtn7,ControlBtn8;
     private Button LockButton,RefreshButton;
-    private TextView PingView,MsgView;
+    private TextView StatusView,MsgView;
     private TextView valuel,valuer;
 
     private Settings settings;
@@ -104,7 +104,7 @@ public class fpvActivity extends AppCompatActivity {
         window.setNavigationBarColor(Color.TRANSPARENT);
 
         //找到PingView,MsgView;
-        PingView = findViewById(R.id.PingView);
+        StatusView = findViewById(R.id.StatusView);
         MsgView = findViewById(R.id.MsgView);
 
         //获取fpvAddress参数
@@ -121,26 +121,6 @@ public class fpvActivity extends AppCompatActivity {
 
         switch (fpvMode){
             case "http":{
-                break;
-            }
-
-            case "Photo":{
-                //验证储存权限
-                verifyStoragePermissions(this);
-                break;
-            }
-
-            default:{
-                break;
-            }
-        }
-
-        switch(ControlMode) {
-            case "TCP": {
-                host = intent.getStringExtra("Host");
-                port = Integer.valueOf(intent.getStringExtra("Port")).intValue();
-                msgobject = new MsgObject(host,port,MsgView);
-
                 //注册监听事件
                 RefreshButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -161,17 +141,46 @@ public class fpvActivity extends AppCompatActivity {
                         }
                     }
                 });
+                break;
+            }
 
+            case "Photo":{
+                //验证储存权限
+                verifyStoragePermissions(this);
+
+                LockButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EnableWebviewTouchEvent = !EnableWebviewTouchEvent;
+                        if(EnableWebviewTouchEvent){
+                            LockButton.setBackgroundResource(R.drawable.ic_baseline_lock_open_24);
+                        }else {
+                            LockButton.setBackgroundResource(R.drawable.ic_baseline_lock_24);
+                        }
+                    }
+                });
+                break;
+            }
+
+            default:{
+                //隐藏LockButton,RefreshButton
+                RefreshButton.setVisibility(View.INVISIBLE);
+                LockButton.setVisibility(View.INVISIBLE);
+                break;
+            }
+        }
+
+        switch(ControlMode) {
+            case "TCP": {
+                host = intent.getStringExtra("Host");
+                port = Integer.valueOf(intent.getStringExtra("Port")).intValue();
+                msgobject = new MsgObject(host,port,MsgView);
                 break;
             }
             case "Bluetooth": {
                 mac = intent.getStringExtra("Mac");
                 Log.i("Mac",mac);
                 msgobject = new MsgObject(mac,MsgView);
-
-                //隐藏LockButton,RefreshButton
-                RefreshButton.setVisibility(View.INVISIBLE);
-                LockButton.setVisibility(View.INVISIBLE);
                 break;
             }
 
@@ -244,7 +253,7 @@ public class fpvActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable(){
                             @Override
                             public void run() {
-                                ping(data);
+                                StatusView.setText(data);
                             }
                         });
                     }
@@ -253,7 +262,7 @@ public class fpvActivity extends AppCompatActivity {
             }
 
             default:{
-                PingView.setText("");
+                StatusView.setText("");
                 break;
             }
         }
@@ -580,9 +589,5 @@ public class fpvActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void ping(String string){
-        PingView.setText(string);
     }
 }

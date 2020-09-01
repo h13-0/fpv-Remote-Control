@@ -362,9 +362,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case R.id.Update:{
-                Uri uri = Uri.parse("market://details?id="+getPackageName());
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse("https://www.coolapk.com/apk/com.h13studio.fpv");
+                intent.setData(content_url);
                 startActivity(intent);
                 break;
             }
