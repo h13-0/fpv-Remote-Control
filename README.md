@@ -3,6 +3,7 @@
 # 下载
 
 https://github.com/h13-0/fpv-Remote-Control/releases
+https://www.coolapk.com/apk/com.h13studio.fpv
 
 # 图传部分
 针对图传部分,我只提供 Linux开发板 的配置方法,对于使用'esp-eyes'的请自行按照http/udp协议使用。
