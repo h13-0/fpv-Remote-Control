@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -119,6 +122,53 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
 
         }else if(holder instanceof ModeViewHolder){
 
+            //初始化UI
+            ((ModeViewHolder) holder).FPVMode.setSelection(settings.getFPVMode());
+            ((ModeViewHolder) holder).ControlMode.setSelection(settings.getControlMode());
+
+            switch (settings.getFPVMode()){
+                case 1:{
+                    ((ModeViewHolder) holder).FPVAddress.setText(settings.gethttpAddress());
+                    break;
+                }
+
+                case 2:{
+                    ((ModeViewHolder) holder).FPVAddress.setText(settings.getUDPAddress());
+                    break;
+                }
+
+                case 3:{
+                    ((ModeViewHolder) holder).FPVAddress.setText(settings.getPhotoAddress());
+                    break;
+                }
+
+                default:{
+                    break;
+                }
+            }
+
+            switch (settings.getControlMode()){
+                case 0:{
+                    ((ModeViewHolder) holder).ControlAddress.setText(settings.getTCPAddress());
+                    break;
+                }
+
+                case 1:{
+                    ((ModeViewHolder) holder).ControlAddress.setText(settings.getBluetoothAddress());
+                    break;
+                }
+
+                default:{
+                    break;
+                }
+            }
+
+            //注册监听事件
+            FPVModeItemSelected fpvModeItemSelected = new FPVModeItemSelected((ModeViewHolder) holder,settings);
+            ((ModeViewHolder) holder).FPVMode.setOnItemSelectedListener(fpvModeItemSelected);
+
+            ControlModeItemSelected controlModeItemSelected = new ControlModeItemSelected((ModeViewHolder) holder,settings);
+            ((ModeViewHolder) holder).ControlMode.setOnItemSelectedListener(controlModeItemSelected);
 
         }else if (holder instanceof SwitchHolder){
 
@@ -168,11 +218,16 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
     }
 
     class ModeViewHolder extends AdvancedSettingsAdapter.ViewHolder {
+        Spinner FPVMode,ControlMode;
+        EditText FPVAddress,ControlAddress;
 
         @SuppressLint("ResourceType")
         public ModeViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            FPVMode = itemView.findViewById(R.id.DefaultFPVMode);
+            ControlMode = itemView.findViewById(R.id.DefaultControlMode);
+            FPVAddress = itemView.findViewById(R.id.DefaultFPVAddress);
+            ControlAddress = itemView.findViewById(R.id.DefaultControlAddress);
         }
     }
 

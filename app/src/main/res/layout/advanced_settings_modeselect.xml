@@ -34,10 +34,10 @@
             android:layout_height="45dp"
             android:paddingLeft="20dp"
             android:entries="@array/fpvMode"
-
             />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/DefaultFPVAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -77,6 +77,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/DefaultControlAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

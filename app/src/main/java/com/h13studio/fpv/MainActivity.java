@@ -116,6 +116,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //加载默认设置
+        fpvModeSpinner.setSelection(settings.getFPVMode());
+        switch (settings.getFPVMode()){
+            case 0:{
+                fpvAddress.setText(settings.gethttpAddress());
+                break;
+            }
+
+            case 1:{
+                fpvAddress.setText(settings.getUDPAddress());
+                break;
+            }
+
+            case 2:{
+                fpvAddress.setText(settings.getPhotoAddress());
+                break;
+            }
+
+            default:{
+                break;
+            }
+        }
+
+        ControlModeSpinner.setSelection(settings.getControlMode());
+        switch (settings.getControlMode()){
+            case 0:{
+                controladdress.setText(settings.getTCPAddress());
+                break;
+            }
+
+            case 1:{
+                controladdress.setText(settings.getBluetoothAddress());
+                break;
+            }
+
+            default:{
+                break;
+            }
+        }
+
+
         //设置fpv模式修改监听事件
         fpvModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
