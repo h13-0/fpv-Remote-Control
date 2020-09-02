@@ -23,11 +23,19 @@ public class Settings {
         return datapreference.getBoolean("ModeRight", new Boolean(true));
     }
 
+    public Boolean getCheckConfig(){
+        return datapreference.getBoolean("CheckConfig", new Boolean(true));
+    }
+
     public void setModeLeft(boolean data) {
         editor.putBoolean("ModeLeft", data).commit();
     }
 
     public void setModeRight(boolean data) {
         editor.putBoolean("ModeRight", data).commit();
+    }
+
+    public void setCheckConfig(boolean data){
+        editor.putBoolean("CheckConfig",data).commit();
     }
 }

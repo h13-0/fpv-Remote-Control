@@ -8,6 +8,11 @@ public class ControllerOnCheckedChanged implements CompoundButton.OnCheckedChang
     private AdvancedSettingsAdapter.ControlViewHolder holder;
     private Settings settings;
 
+    public ControllerOnCheckedChanged(final AdvancedSettingsAdapter.ControlViewHolder holder,Settings settings){
+        this.holder = holder;
+        this.settings = settings;
+    }
+
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         Log.i("CheckedChanged","OnChanged");
@@ -41,10 +46,5 @@ public class ControllerOnCheckedChanged implements CompoundButton.OnCheckedChang
                 break;
             }
         }
-    }
-
-    public ControllerOnCheckedChanged(final AdvancedSettingsAdapter.ControlViewHolder holder,Settings settings){
-        this.holder = holder;
-        this.settings = settings;
     }
 }

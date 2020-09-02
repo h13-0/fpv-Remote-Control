@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //标记是否通过条件检查
     private boolean checkpass = true;
 
+    //App设置
+    private Settings settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ControlModeSpinner = findViewById(R.id.ControlModeSpinner);
         //找到navigation控件
         navigationview = findViewById(R.id.nav_view);
+
+        //初始化App设置
+        settings = new Settings(getSharedPreferences("Settings",MODE_PRIVATE));
 
         //初始化ToolBar
         setSupportActionBar(toolbar);
@@ -258,8 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new CheckHost(EventLog, host, new CheckHost.OnMainCallBack() {
                             @Override
                             public void onMainCallBack(Boolean checkpass) {
-                                if(checkpass) {
-                                    Log.i("Checkpass",checkpass.toString());
+                                if((checkpass) || (!settings.getCheckConfig())) {
                                     fpvActivity fpv = new fpvActivity();
 
                                     Intent intent = new Intent(MainActivity.this, fpv.getClass());
@@ -271,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     intent.putExtra("Host", finalHost);
                                     intent.putExtra("Port", String.valueOf(finalPort));
                                     startActivity(intent);
+                                } else {
+                                    EventLog.append("Config Check error!");
                                 }
                             }
                         }).start();

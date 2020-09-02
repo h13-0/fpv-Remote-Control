@@ -119,8 +119,15 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
 
         }else if(holder instanceof ModeViewHolder){
 
+
         }else if (holder instanceof SwitchHolder){
 
+            //初始化UI
+            ((SwitchHolder) holder).CheckConfig.setChecked(settings.getCheckConfig());
+
+            //注册监听事件
+            SwitchOnCheckedChanged switchOnCheckedChanged = new SwitchOnCheckedChanged((SwitchHolder) holder,settings);
+            ((SwitchHolder) holder).CheckConfig.setOnCheckedChangeListener(switchOnCheckedChanged);
         }
     }
 
@@ -149,14 +156,14 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
         @SuppressLint("ResourceType")
         public ControlViewHolder(@NonNull View itemView) {
             super(itemView);
-            rockerviewl = (RockerView) itemView.findViewById(R.id.rockerViewdemol);
-            rockerviewr = (RockerView) itemView.findViewById(R.id.rockerViewdemor);
-            seekbarl = (AppCompatSeekBar) itemView.findViewById(R.id.seekbardemol);
-            seekbarr = (AppCompatSeekBar) itemView.findViewById(R.id.seekbardemor);
-            switchl = (SwitchCompat) itemView.findViewById(R.id.Switchl);
-            switchr = (SwitchCompat) itemView.findViewById(R.id.Switchr);
-            model = (TextView) itemView.findViewById(R.id.model);
-            moder = (TextView) itemView.findViewById(R.id.moder);
+            rockerviewl = itemView.findViewById(R.id.rockerViewdemol);
+            rockerviewr = itemView.findViewById(R.id.rockerViewdemor);
+            seekbarl = itemView.findViewById(R.id.seekbardemol);
+            seekbarr = itemView.findViewById(R.id.seekbardemor);
+            switchl = itemView.findViewById(R.id.Switchl);
+            switchr = itemView.findViewById(R.id.Switchr);
+            model = itemView.findViewById(R.id.model);
+            moder = itemView.findViewById(R.id.moder);
         }
     }
 
@@ -170,11 +177,12 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
     }
 
     class SwitchHolder extends AdvancedSettingsAdapter.ViewHolder {
+        Switch CheckConfig;
 
         @SuppressLint("ResourceType")
         public SwitchHolder(@NonNull View itemView) {
             super(itemView);
-
+            CheckConfig = itemView.findViewById(R.id.CheckConfig);
         }
     }
 
