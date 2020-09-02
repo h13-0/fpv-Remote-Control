@@ -58,6 +58,17 @@ public class Settings {
         editor.putBoolean("CheckConfig",data).commit();
     }
 
+    /**
+     * @brief: 有更新时提示
+     * @return: True or False
+     */
+    public Boolean getCheckUpdate(){
+        return datapreference.getBoolean("CheckUpdate", new Boolean(true));
+    }
+
+    public void setCheckUpdate(boolean data){
+        editor.putBoolean("CheckUpdate",data).commit();
+    }
 
     /**
      * @brief: 遥控模式

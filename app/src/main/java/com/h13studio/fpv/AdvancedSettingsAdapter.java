@@ -181,10 +181,13 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
 
             //初始化UI
             ((SwitchHolder) holder).CheckConfig.setChecked(settings.getCheckConfig());
+            ((SwitchHolder) holder).CheckUpdate.setChecked(settings.getCheckUpdate());
 
             //注册监听事件
             SwitchOnCheckedChanged switchOnCheckedChanged = new SwitchOnCheckedChanged((SwitchHolder) holder,settings);
             ((SwitchHolder) holder).CheckConfig.setOnCheckedChangeListener(switchOnCheckedChanged);
+            ((SwitchHolder) holder).CheckUpdate.setOnCheckedChangeListener(switchOnCheckedChanged);
+
         }
     }
 
@@ -239,11 +242,12 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
     }
 
     class SwitchHolder extends AdvancedSettingsAdapter.ViewHolder {
-        Switch CheckConfig;
+        Switch CheckConfig,CheckUpdate;
 
         @SuppressLint("ResourceType")
         public SwitchHolder(@NonNull View itemView) {
             super(itemView);
+            CheckUpdate = itemView.findViewById(R.id.CheckUpdate);
             CheckConfig = itemView.findViewById(R.id.CheckConfig);
         }
     }

@@ -156,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
+        //检查更新
+        CheckUpdate checkUpdate = new CheckUpdate();
 
         //设置fpv模式修改监听事件
         fpvModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -19,6 +19,11 @@ public class SwitchOnCheckedChanged implements CompoundButton.OnCheckedChangeLis
                 break;
             }
 
+            case R.id.CheckUpdate:{
+                settings.setCheckUpdate(b);
+                break;
+            }
+
             default:{
                 break;
             }
