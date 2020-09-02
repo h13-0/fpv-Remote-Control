@@ -1,6 +1,7 @@
 package com.h13studio.fpv;
 
 import android.annotation.SuppressLint;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -169,6 +170,12 @@ public class AdvancedSettingsAdapter extends RecyclerView.Adapter<AdvancedSettin
 
             ControlModeItemSelected controlModeItemSelected = new ControlModeItemSelected((ModeViewHolder) holder,settings);
             ((ModeViewHolder) holder).ControlMode.setOnItemSelectedListener(controlModeItemSelected);
+
+            FPVAddressTextWatcher fpvAddressTextWatcher = new FPVAddressTextWatcher((ModeViewHolder) holder,settings);
+            ((ModeViewHolder) holder).FPVAddress.addTextChangedListener(fpvAddressTextWatcher);
+
+            ControlAddressTextWatcher controlAddressTextWatcher = new ControlAddressTextWatcher((ModeViewHolder) holder,settings);
+            ((ModeViewHolder) holder).ControlAddress.addTextChangedListener(controlAddressTextWatcher);
 
         }else if (holder instanceof SwitchHolder){
 
