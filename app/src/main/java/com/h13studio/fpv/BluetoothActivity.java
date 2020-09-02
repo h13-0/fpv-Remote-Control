@@ -119,8 +119,8 @@ public class BluetoothActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("ClickID", (String) view.getTag());
                 Intent intent = getIntent();
-                //这里使用bundle绷带来传输数据
-                Bundle bundle =new Bundle();
+                //这里使用bundle来传输数据
+                Bundle bundle = new Bundle();
                 //传输的内容仍然是键值对的形式
                 bundle.putString("Mac",(String) view.getTag());
                 intent.putExtras(bundle);

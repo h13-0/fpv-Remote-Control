@@ -14,160 +14,350 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:title="Advanced Settings"
+
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:layout_marginTop="7.5dp"
-        android:layout_marginBottom="3dp"
-        >
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="@drawable/advanced_setting_shape1"-->
+<!--        android:layout_marginHorizontal="15dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        >-->
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:weightSum="2"-->
+<!--            >-->
 
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="左控件:"
-                    android:textColor="#000"
-                    />
+<!--            <FrameLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                >-->
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/Switchl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+<!--                <com.kongqw.rockerlibrary.view.RockerView-->
+<!--                    android:id="@+id/rockerViewdemol"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    kongqw:areaBackground="@drawable/rockerunfocused"-->
+<!--                    kongqw:rockerBackground="@drawable/rocker"-->
+<!--                    kongqw:rockerRadius="30dp"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    tools:ignore="MissingConstraints"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/model"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="摇杆"
-                    android:textColor="#000"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+<!--                <androidx.appcompat.widget.AppCompatSeekBar-->
+<!--                    android:id="@+id/seekbardemol"-->
+<!--                    android:rotation="270"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:visibility="invisible"-->
+<!--                    />-->
+<!--            </FrameLayout>-->
 
+<!--            <FrameLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="wrap_content"-->
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+<!--                >-->
 
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="右控件:"
-                    android:textColor="#000"
-                    />
+<!--                <com.kongqw.rockerlibrary.view.RockerView-->
+<!--                    android:id="@+id/rockerViewdemor"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="150dp"-->
+<!--                    kongqw:areaBackground="@drawable/rockerunfocused"-->
+<!--                    kongqw:rockerBackground="@drawable/rocker"-->
+<!--                    kongqw:rockerRadius="30dp"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    tools:ignore="MissingConstraints"-->
+<!--                    android:visibility="invisible"-->
+<!--                    />-->
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/Switchr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+<!--                <androidx.appcompat.widget.AppCompatSeekBar-->
+<!--                    android:id="@+id/seekbardemor"-->
+<!--                    android:rotation="270"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/moder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="滑杆"
-                    android:textColor="#000"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+<!--            </FrameLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:background="@drawable/advanced_setting_shape1"
-        android:layout_marginHorizontal="15dp"
-        >
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            >
-
-            <com.kongqw.rockerlibrary.view.RockerView
-                android:id="@+id/rockerViewdemol"
-                android:layout_gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                kongqw:areaBackground="@drawable/rockerunfocused"
-                kongqw:rockerBackground="@drawable/rocker"
-                kongqw:rockerRadius="30dp"
-                android:layout_margin="10dp"
-                tools:ignore="MissingConstraints"
-                />
-
-            <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/seekbardemol"
-                android:rotation="270"
-                android:layout_width="150dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-
-            >
-
-            <com.kongqw.rockerlibrary.view.RockerView
-                android:id="@+id/rockerViewdemor"
-                android:layout_gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                kongqw:areaBackground="@drawable/rockerunfocused"
-                kongqw:rockerBackground="@drawable/rocker"
-                kongqw:rockerRadius="30dp"
-                android:layout_margin="10dp"
-                tools:ignore="MissingConstraints"
-                android:visibility="invisible"
-                />
-
-            <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/seekbardemor"
-                android:rotation="270"
-                android:layout_width="150dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                />
-
-        </FrameLayout>
+<!--        </LinearLayout>-->
 
 
-    </LinearLayout>
+
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:weightSum="2"-->
+<!--            android:layout_marginTop="7.5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            >-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center"-->
+<!--                >-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+
+<!--                    >-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="左控件:"-->
+<!--                        android:textColor="#000"-->
+<!--                        />-->
+
+<!--                    <androidx.appcompat.widget.SwitchCompat-->
+<!--                        android:id="@+id/Switchl"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/model"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="摇杆"-->
+<!--                        android:textColor="#000"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center"-->
+<!--                >-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+
+<!--                    >-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="右控件:"-->
+<!--                        android:textColor="#000"-->
+<!--                        />-->
+
+<!--                    <androidx.appcompat.widget.SwitchCompat-->
+<!--                        android:id="@+id/Switchr"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/moder"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="滑杆"-->
+<!--                        android:textColor="#000"-->
+<!--                        />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        >-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginRight="7.5dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@drawable/advanced_setting_shape1"-->
+<!--            >-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="默认图传模式"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textColor="#000"-->
+<!--                />-->
+
+<!--            <androidx.appcompat.widget.AppCompatSpinner-->
+<!--                android:id="@+id/DefaultFPVMode"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:entries="@array/fpvMode"-->
+
+<!--                />-->
+
+<!--            <androidx.appcompat.widget.AppCompatEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="20dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                />-->
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginLeft="7.5dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@drawable/advanced_setting_shape1"-->
+<!--            >-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="默认控制模式"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textColor="#000"-->
+<!--                />-->
+
+<!--            <Spinner-->
+<!--                android:id="@+id/DefaultControlMode"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:entries="@array/ControlMode"-->
+<!--                />-->
+
+<!--            <androidx.appcompat.widget.AppCompatEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="20dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                />-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="@drawable/advanced_setting_shape1"-->
+<!--        android:layout_margin="15dp"-->
+<!--        >-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_marginVertical="15dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:weightSum="6"-->
+<!--            >-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_weight="5"-->
+<!--                >-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="强制检查配置"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textColor="#000"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="进入控制界面之前强制检查配置"-->
+<!--                    />-->
+
+<!--            </LinearLayout>-->
+
+
+<!--            <Switch-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                />-->
+<!--        </LinearLayout>-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:layout_marginVertical="15dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:weightSum="6"-->
+<!--            >-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_weight="5"-->
+<!--                >-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="还没想好是什么"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textColor="#000"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="凑个数,不然太难看"-->
+<!--                    />-->
+
+<!--            </LinearLayout>-->
+
+
+<!--            <Switch-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                />-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/AdvancedSettingsRecyclerview"

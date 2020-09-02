@@ -50,74 +50,11 @@ public class AdvancedSettings extends AppCompatActivity {
             }
         });
 
-        recycleradapter = new AdvancedSettingsAdapter();
+        recycleradapter = new AdvancedSettingsAdapter(settings);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this );
         recyclerView.setLayoutManager(layoutManager);
         //设置增加或删除条目的动画
         recyclerView.setItemAnimator( new DefaultItemAnimator());
         recyclerView.setAdapter(recycleradapter);
-
-        //找到摇杆demmo
-        rockerviewl = findViewById(R.id.rockerViewdemol);
-        rockerviewr = findViewById(R.id.rockerViewdemor);
-
-        //找到滑杆demo
-        seekbarl = findViewById(R.id.seekbardemol);
-        seekbarr = findViewById(R.id.seekbardemor);
-
-        //找到Switch
-        switchl = findViewById(R.id.Switchl);
-        switchr = findViewById(R.id.Switchr);
-
-        //Mode为Fales则为摇杆,为True则为滑杆
-        if (settings.getModeLeft()) {
-            rockerviewl.setVisibility(View.INVISIBLE);
-            seekbarl.setVisibility(View.VISIBLE);
-        } else {
-            rockerviewl.setVisibility(View.VISIBLE);
-            seekbarl.setVisibility(View.INVISIBLE);
-        }
-
-        if (settings.getModeRight()) {
-            rockerviewr.setVisibility(View.INVISIBLE);
-            seekbarr.setVisibility(View.VISIBLE);
-        } else {
-            rockerviewr.setVisibility(View.VISIBLE);
-            seekbarr.setVisibility(View.INVISIBLE);
-        }
-
-        switchl.setChecked(settings.getModeLeft());
-        switchr.setChecked(settings.getModeRight());
-
-        //设置监听事件
-        switchl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    rockerviewl.setVisibility(View.INVISIBLE);
-                    seekbarl.setVisibility(View.VISIBLE);
-                }else{
-                    rockerviewl.setVisibility(View.VISIBLE);
-                    seekbarl.setVisibility(View.INVISIBLE);
-                }
-
-                settings.setModeLeft(b);
-            }
-        });
-
-        switchr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    rockerviewr.setVisibility(View.INVISIBLE);
-                    seekbarr.setVisibility(View.VISIBLE);
-                }else{
-                    rockerviewr.setVisibility(View.VISIBLE);
-                    seekbarr.setVisibility(View.INVISIBLE);
-                }
-
-                settings.setModeRight(b);
-            }
-        });
     }
 }
