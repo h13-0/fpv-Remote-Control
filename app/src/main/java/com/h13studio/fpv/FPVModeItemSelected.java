@@ -30,6 +30,8 @@ public class FPVModeItemSelected implements AdapterView.OnItemSelectedListener{
         settings.setFPVMode(i);
         if(i == 2){
             holder.FPVAddress.setHint(new SpannableString("暂时不支持自动填充图片URL,请从主页面复制过来"));
+        } else {
+            holder.FPVAddress.setHint(new SpannableString(""));
         }
     }
 

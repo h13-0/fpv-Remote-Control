@@ -18,6 +18,8 @@ public class ControlModeItemSelected implements AdapterView.OnItemSelectedListen
         settings.setConrtolMode(i);
         if(i == 1){
             holder.ControlAddress.setHint(new SpannableString("暂时不支持自动填充蓝牙MAC地址,请从主页面复制过来"));
+        } else {
+            holder.ControlAddress.setHint(new SpannableString(""));
         }
     }
 

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -157,7 +159,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //检查更新
-        CheckUpdate checkUpdate = new CheckUpdate();
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = null;
+        try {
+            packInfo = packageManager.getPackageInfo(getPackageName(),0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        CheckUpdate checkUpdate = new CheckUpdate(packInfo.versionCode, new CheckUpdate.OnMainCallBack() {
+            @Override
+            public void onMainCallBack(boolean NewVersion, final String UpdateLog) {
+                if(NewVersion) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showUpdateDialog(UpdateLog);
+
+                        }
+                    });
+                }
+            }
+        });
+
 
         //设置fpv模式修改监听事件
         fpvModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -615,6 +639,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showUpdateDialog(String message){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(MainActivity.this);
+        normalDialog.setIcon(R.drawable.icon);
+        normalDialog.setTitle("检测到新版本");
+        normalDialog.setMessage(message);
+        normalDialog.setPositiveButton("现在更新",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse("https://www.coolapk.com/apk/com.h13studio.fpv");
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+        normalDialog.setNegativeButton("以后再说",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 }
 
