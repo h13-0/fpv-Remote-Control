@@ -159,28 +159,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //检查更新
-        PackageManager packageManager = getPackageManager();
-        // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = null;
-        try {
-            packInfo = packageManager.getPackageInfo(getPackageName(),0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        CheckUpdate checkUpdate = new CheckUpdate(packInfo.versionCode, new CheckUpdate.OnMainCallBack() {
-            @Override
-            public void onMainCallBack(boolean NewVersion, final String UpdateLog) {
-                if(NewVersion) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showUpdateDialog(UpdateLog);
-
-                        }
-                    });
-                }
+        if(settings.getCheckUpdate()) {
+            //获取VersionCode
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packInfo = null;
+            try {
+                packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
             }
-        });
+            CheckUpdate checkUpdate = new CheckUpdate(packInfo.versionCode, new CheckUpdate.OnMainCallBack() {
+                @Override
+                public void onMainCallBack(boolean NewVersion, final String UpdateLog) {
+                    if (NewVersion) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showUpdateDialog(UpdateLog);
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
 
 
         //设置fpv模式修改监听事件
@@ -642,14 +644,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showUpdateDialog(String message){
-        /* @setIcon 设置对话框图标
-         * @setTitle 设置对话框标题
-         * @setMessage 设置对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式设置属性
-         */
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(MainActivity.this);
-        normalDialog.setIcon(R.drawable.icon);
+        normalDialog.setIcon(R.mipmap.ic_launcher_round_gray);
         normalDialog.setTitle("检测到新版本");
         normalDialog.setMessage(message);
         normalDialog.setPositiveButton("现在更新",
