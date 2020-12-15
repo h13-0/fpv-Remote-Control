@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +29,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kongqw.rockerlibrary.view.RockerView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -394,10 +400,10 @@ public class fpvActivity extends AppCompatActivity {
                         }
 
                         if (v <= 190) {
-                            valuer.setText(String.valueOf(angel) + " " + String.valueOf((int) (v)));
+                            valuer.setText(angel + " " + (int) (v));
                             msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536 * v)));
                         } else {
-                            valuer.setText(String.valueOf(angel) + " " + "190");
+                            valuer.setText(angel + " " + "190");
                             msgobject.SendMsg(ToBinaryData(ControlerTypy.RockerView, 1, (int) (angel + 65536 * 190)));
                         }
                     }
@@ -544,6 +550,7 @@ public class fpvActivity extends AppCompatActivity {
         //设置WebView
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);//启用JavaScript
+        webSettings.setSaveFormData(false);    //不保存表单
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setSupportZoom(true);
@@ -555,6 +562,8 @@ public class fpvActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setDefaultTextEncodingName("utf-8");
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        //设置浏览器UA为横屏, 缩短Headers, 减少对单片机的要求
+        webSettings.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0");
     }
 
     //动态申请读写储存权限

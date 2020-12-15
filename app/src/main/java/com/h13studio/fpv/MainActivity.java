@@ -25,33 +25,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.Navigation;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.net.InetAddress;
-import java.security.acl.Group;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -256,8 +237,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     case 1:{
                         controlMode = 1;
-//                        controladdress.setFocusable(false);
-//                        controladdress.setFocusableInTouchMode(false);
 
                         EventLog.append("Control Sevrice is running on Bluetooth Mode...\r\n");
                         //这里该让用户选择目标蓝牙设备了
@@ -472,6 +451,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    //这写的是什么鬼垃圾 待会儿再回来清理
     //测试TCP连接性线程
     public static class CheckHost extends Thread {
         private String[] temp;
@@ -513,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         /**主线程回调接口*/
+
         public interface OnMainCallBack{
             void onMainCallBack(Boolean Checkpass);
         }
@@ -586,9 +567,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         text=bundle.getString("Mac");
                     Log.d("result",text);
                     controladdress.setText(text);
-//                  controladdress.setFocusable(false);
-//                  controladdress.setFocusableInTouchMode(false);
-                    //mBtn_Linear.setClickable(false);
 
                     EventLog.append("Select Bluetooth target at" + text);
                     BluetoothTargetSelected = true;
